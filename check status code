@@ -1,0 +1,11 @@
+if (responseCode.code === 200) {
+    var jsonbodytype = JSON.parse(responseBody);
+    pm.test("Status code is " + responseCode.code , function() {
+        pm.response.to.have.status(200);
+    });
+} else {
+    console.log(responseCode.code);
+    pm.test("Status code is " + responseCode.code + " ," + responseBody, function() {
+        pm.response.to.have.status(200);
+    });
+}
