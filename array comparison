@@ -3,14 +3,14 @@ if (responseCode.code === 200) {
     var jsondata = JSON.parse(responseBody);
 
      if (jsondata.vinServiceData != null){
-    var jsonbodytagName1 = jsondata.vinServiceData[0].cartellvindecoder.extradata;
+    var jsonbodytagName1 = jsondata.tag;
 
     if (jsonbodytagName1 != null) {
         var jsonbodytagName = jsonbodytagName1.attributes.attribute
     }
    
 	// tagName
-	 var jsontagName1 = jsondata.vinServiceData[0].cartellvindecoder.extradata;
+	 var jsontagName1 = jsondata.tag;
     if (jsontagName1 != null) {
         var jsontagName = jsontagName1.attributes.attribute;
     }
@@ -31,7 +31,7 @@ if (responseCode.code === 200) {
         pm.test("tagName tagName value :- " + JSON.stringify(tagName3), function() {});
     }
     var tagName1 = [];
-    var jsontagName = jsondata.vinServiceData[0].cartellvindecoder.statisticalview.attributes.attribute;
+    var jsontagName = jsondata.tag;
     var needle2 = 'TecDoc_KTyp_No';
     var tagName = [];
     for (var index in jsontagName) {
