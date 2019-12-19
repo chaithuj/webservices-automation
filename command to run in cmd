@@ -1,0 +1,15 @@
+npm install -g newman
+
+npm install -g newman-reporter-html
+--with datafile
+newman run collectionname.json -d datafile.csv -r cli,json --reporter-json-export outputfile.json
+--with enviroment
+newman run collectionname.json -e dev.environment.json -r cli,html,json --reporter-json-export outputfile.json
+
+npm install -g newman-reporter-htmlextra
+--with datafile
+newman run collectionfile.postman_collection.json -d csv.csv -r cli,htmlextra,json --reporter-json-export outputfile.json
+--with enviroment
+newman run collectionname.json -e dev.environment.json -r cli,html,json --reporter-json-export outputfile.json
+
+save as .bat for running single click (notepad)
