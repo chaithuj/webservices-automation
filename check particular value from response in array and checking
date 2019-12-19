@@ -1,0 +1,8 @@
+ var needle2 = 'tagvalue';
+    var bodytype1 = [];
+    for (var index in jsonbodytype) {
+        if (jsonbodytype[index].tag == needle2) {
+            bodytype1.push(jsonbodytype[index]);
+        }
+    }
+     pm.test("value :- " + JSON.stringify(bodytype1), function() {});
