@@ -1,0 +1,136 @@
+if (responseCode.code === 200) {
+
+    var jsondata = JSON.parse(responseBody);
+
+     if (jsondata.vinServiceData != null){
+    var jsonbodytagName1 = jsondata.vinServiceData[0].cartellvindecoder.extradata;
+
+    if (jsonbodytagName1 != null) {
+        var jsonbodytagName = jsonbodytagName1.attributes.attribute
+    }
+   
+	// tagName
+	 var jsontagName1 = jsondata.vinServiceData[0].cartellvindecoder.extradata;
+    if (jsontagName1 != null) {
+        var jsontagName = jsontagName1.attributes.attribute;
+    }
+    var needle = 'TecDoc_KTyp_No';
+    var tagName = [];
+    for (var index in jsontagName) {
+        if (jsontagName[index].name == needle) {
+            tagName.push(jsontagName[index]);
+        }
+    }
+    if (tagName.length > 0) {
+        console.log(tagName[0].values.item);
+        var tagName2 = tagName[0].values.item;
+        var tagName3 = [];
+        for (var i = 0; i < tagName2.length; i++) {
+            tagName3.push(tagName2[i].value);
+        }
+        pm.test("tagName tagName value :- " + JSON.stringify(tagName3), function() {});
+    }
+    var tagName1 = [];
+    var jsontagName = jsondata.vinServiceData[0].cartellvindecoder.statisticalview.attributes.attribute;
+    var needle2 = 'TecDoc_KTyp_No';
+    var tagName = [];
+    for (var index in jsontagName) {
+        if (jsontagName[index].name == needle2) {
+            tagName1.push(jsontagName[index]);
+        }
+    }
+    if (tagName1.length > 0) {
+        console.log(tagName1[0].values.item);
+        var tagName2 = tagName1[0].values.item;
+        var tagName3 = [];
+        for (var i = 0; i < tagName2.length; i++) {
+            tagName3.push(tagName2[i].value);
+        }
+        var arr = [];
+        for (i = 0; i < tagName3.length; i++) {
+            var string = tagName3[i];
+            if (string.match(';')) {
+                console.log(tagName3[i]);
+                arr.push(tagName3[i].split(';'));
+            } else {
+                arr.push(tagName3[i]);
+            }
+        }
+        var arr3 = [];
+        for (i = 0; i < arr.length; i++) {
+            var arr4 = [];
+            arr4 = arr[i];
+            if (Array.isArray(arr4)) {
+                var arr2 = arr4;
+                console.log(arr2);
+                for (j = 0; j < arr2.length; j++) {
+                    console.log(arr2[j]);
+                    arr3.push(arr2[j]);
+                    console.log(arr3);
+                }
+            } else {
+                arr3.push(arr4);
+            }
+        }
+
+        function onlyUnique(value, index, self) {
+            return self.indexOf(value) === index;
+        }
+        var unique = arr3.filter(onlyUnique);
+      // pm.test("tagName value :- " + JSON.stringify(unique), function() {});
+      }
+	  
+	   //K tagName
+	     
+        if(jsondata.lpnData.tagName != null){
+              var jsontagName1 = jsondata.lpnData.tagName[0];  
+                    var unique = jsontagName1;
+      }else{
+                var unique = null;
+      }
+   
+   //test 
+// tagName
+
+    var jsontagName = unique;
+    var filetagName1 = null;
+	filetagName1 = "16331";
+	if(filetagName1 != null){
+    var filetagName = filetagName1.replace(/\s/g, '');
+    }else{
+            var filetagName = filetagName1;
+    }
+	//var filetagName = filetagName1.replace(/\s/g, '');
+ 	if (jsontagName != null && filetagName != '' && filetagName != null) {
+    //converting k tagName to uppercase and removing spaces
+    var tagNamefile= [];
+    tagNamefile.push(filetagName.split(','));
+    console.log("tagName file", tagNamefile);
+
+    var tagNamejson = [];
+    tagNamejson.push(jsontagName);
+    console.log("tagName json", tagNamejson);
+    
+        pm.test("k tagName checking - " + "  expected : \"" + tagNamejson + "\", Actual : \"" + tagNamefile + "\"", function() {
+
+        pm.expect(tagNamejson).to.eql(tagNamefile[0]);
+    });
+    }
+else {
+    if(jsontagName == null && filetagName != '' && filetagName != null){
+        pm.test("k tagName object is not present in responce , file value :- " +filetagName , function() {})
+    }
+    else if(jsontagName == null && (filetagName == '' || filetagName == null)){
+        pm.test("k tagName object is not present in both" , function() {})
+    }
+    else{
+        pm.test("k tagName object is not present in file , response Value :- " +jsontagName, function() {});
+    }
+}
+   
+   } else {
+    console.log(responseCode.code);
+    pm.test("Status code is " + responseCode.code + " for VIN : -" + data.vin + "" + responseBody, function() {
+        pm.response.to.have.status(200);
+    });
+}
