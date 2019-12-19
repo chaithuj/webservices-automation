@@ -1,0 +1,3 @@
+ var jsonObject = xml2Json(responseBody); -- for xml to json
+ var jsondata1 = JSON.parse(responseBody);
+ pm.environment.set("value", jsondata1.value);
