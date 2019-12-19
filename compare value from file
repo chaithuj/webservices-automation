@@ -1,0 +1,51 @@
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+var jsondata = JSON.parse(responseBody);
+
+var str = "29917---";
+var str2 = str.replace(/'/g,'').replace(/-/g,"");
+console.log("one" +str2);
+var str1 = str2.toLowerCase().replace(/\s/g, '');
+console.log("one" +str1);
+var array = str1.split(",");
+console.log(array);
+
+	//tag from file
+    var filetagName = null;
+    filetagName = "20011108";
+    //tag from response
+    var jsontagName = null;
+    var jsontagName = jsondata.first_registration_date;
+    
+if (jsontagName != null && filetagName != '' && filetagName != null) {
+
+    //converting tag to lowercase and remotagg spaces from file
+    var tag1 = filetagName.toLowerCase().replace(/\s/g, '');
+    var tagfile = [tag1];
+    console.log("tag file", tagfile);
+
+    var tagjson = [];
+    for (var i = 0; i < jsontagName.length; i++) {
+
+        //converting tag to lowercase and remotagg spaces from json
+        tagjson.push(jsontagName[i].toLowerCase().replace(/\s/g, ''));
+    }
+    console.log("tag json", tagjson);
+
+    pm.test("tag checking - " + " expected : \"" + tagjson + "\", Actual : \"" + tagfile + "\"", function() {
+
+        pm.expect(tagjson).to.eql(tagfile);
+    });
+} else {
+    if(jsontagName == null && filetagName != '' && filetagName != null){
+        pm.test("tag object is not present in responce", function() {})
+    }
+    else if(jsontagName == null && (filetagName == '' || filetagName == null)){
+        pm.test("tag object is not present in both", function() {})
+    }
+    else{
+        pm.test("tag object is not present in file", function() {});
+    }
+}
