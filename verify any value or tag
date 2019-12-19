@@ -1,0 +1,4 @@
+pm.test(" checking : expected :" + ktype + " Actual :" +, function () {
+     pm.expect(expected).includes(Actual);
+     console.log("Both is same");
+});
