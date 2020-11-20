@@ -1,0 +1,6 @@
+%CD%
+npm install
+npm install -g newman
+npm install -g newman-reporter-htmlextra
+cd %CD%
+newman run DIMBO1.postman_collection.json -e staging.postman_environment.json -r cli,htmlextra,json --reporter-json-export outputfile.json --export-environment staging.postman_environment.json
