@@ -13,3 +13,7 @@ newman run collectionfile.postman_collection.json -d csv.csv -r cli,htmlextra,js
 newman run collectionname.json -e dev.environment.json -r cli,html,json --reporter-json-export outputfile.json
 
 save as .bat for running single click (notepad)
+
+--proxy 
+npm config set proxy http://username:password@http.servername.servername.com:80
+npm config set https-proxy http://username:password@http.servername.servername.com:80 
